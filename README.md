@@ -50,21 +50,17 @@ A CUIDAS ajuda o utilizador a perceber a sua medicação e **confirma essa compr
 * A app traz um pacote inicial de conteúdos (`app/app/src/main/assets/conteudo_inicial.json`). Na primeira utilização copia esse pacote para o SQLite, incluindo as perguntas do dia a dia, e funciona sem internet.
 * Cada conteúdo fica guardado com a sua versão. Sempre que a app abre, pergunta a versão geral ao servidor; se mudou, pede o índice (id e versão de cada item) e descarrega só os itens novos ou alterados. Os itens retirados são apagados.
 * Para o servidor vão só eventos anónimos (tipo, conteúdo e dia). O identificador aleatório da instalação (RF02) só serve para contar instalações, e o servidor guarda apenas o seu resumo (SHA 256).
-* Só os profissionais iniciam sessão, na área web.
+* Só os profissionais iniciam sessão.
 
 ## Identidade visual
 
 * Fundo e superfícies `#EDEDED`, destaque e ações `#00A0EA`.
-* Texto escuro sobre o azul (o branco não chega ao contraste mínimo de 4,5:1).
-* Sem gradientes e sem emojis. Ícones simples do Material, todos do mesmo estilo.
+* Texto escuro sobre o azul.
 * O vermelho só aparece no 112 e nos botões de apagar.
 * O backoffice usa as mesmas cores e funciona no telemóvel (menu que abre e fecha, tabelas com scroll horizontal, botões com 44 px de altura).
 
 ## 1. Arrancar o backoffice
 
-### Sem MySQL (modo de demonstração)
-
-No IntelliJ, em Run > Edit Configurations, escrever `demo` em Active profiles e correr `CuidasBackofficeApplication`. Usa uma base de dados H2 guardada na pasta `backoffice/dados-demo/`.
 
 ### Com MySQL
 
@@ -112,7 +108,7 @@ Com o perfil `demo` (`cuidas.debug.ativo=true`), o ecrã de entrada do backoffic
 ### API profissional (área do backoffice dentro da app)
 
 Usa as mesmas contas da área web, enviadas em cada pedido com HTTP Basic (em produção, sempre sobre HTTPS). A app não guarda a palavra passe: fica só em memória e a sessão acaba quando a app fecha. As regras são as mesmas da área web (só o editor edita, só o aprovador aprova, ninguém aprova uma versão escrita por si).
-
+f
 | Pedido | Para quê |
 |---|---|
 | `GET /api/v1/pro/eu`, `/listas`, `/resumo` | Profissional com sessão, listas de tipos, módulos e ações, números do painel |
@@ -157,14 +153,7 @@ A leitura automática vem desligada. A app pergunta na primeira utilização e a
 
 ### Códigos QR e ligações diretas (RF04, RF06)
 
-| Texto do QR | O que faz |
-|---|---|
-| `cuidas://artigo/7` | Abre o artigo 7 |
-| `cuidas://receita?n=Ramipril&d=1%20comprimido&h=08:00,20:00&p=tensao&f=2026-12-31` | Abre "Adicionar medicamento" já preenchido (`f` é a data de término, opcional) |
-| `{"tipo":"receita","medicamentos":[...]}` | Formato da primeira versão, ainda aceite |
-| `cuidas://abrir` | Abre a app (botão na MyULSBE) |
-
-O QR pode ser lido no ecrã "Adicionar medicamento" ou com a câmara do telemóvel. `p` aceita `tensao`, `diabetes`, `coracao`, `colesterol`, `dor`, `estomago`, `sono` e `outro`. O formato real das receitas tem de ser confirmado com a SPMS; só `utils/LeituraQr.kt` precisa de mudar.
+O QR pode ser lido no ecrã "Adicionar medicamento" ou com a câmara do telemóvel. `p` aceita `tensao`, `diabetes`, `coracao`, `colesterol`, `dor`, `estomago`, `sono` e `outro`; só `utils/LeituraQr.kt` precisa de mudar.
 
 ## Organização do código
 
@@ -205,7 +194,6 @@ backoffice/src/main/java/pt/ipca/cuidas/backoffice/
 | `resposta`, `duvida` | resultados das perguntas e temas "ainda não percebi" |
 | `evento_pendente` | eventos anónimos à espera de internet |
 
-Quem já tinha a versão 1 instalada não perde dados: a migração junta as datas e as tabelas novas.
 
 ## Base de dados do backoffice (MySQL)
 
@@ -221,7 +209,6 @@ Quem já tinha a versão 1 instalada não perde dados: a migração junta as dat
 
 * Os conteúdos, as perguntas e os percursos de exemplo.
 * O número de tentativas antes de "ainda não percebi" (agora 2, em `ui/compreensao/PerguntasViewModel.kt`).
-* O formato do QR das receitas (SPMS).
 * A ligação a partir da MyULSBE.
 * O alojamento do backoffice (UE ou infraestrutura da ULSBE/SPMS) com HTTPS.
 
