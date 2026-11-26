@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Coração com um visto, em branco e azul escuro -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,78l-3.6,-3.3C37.6,63.1 29,55.3 29,45.7C29,37.9 35.1,32 42.8,32c4.4,0 8.5,2 11.2,5.2C56.7,34 60.8,32 65.2,32C72.9,32 79,37.9 79,45.7c0,9.6 -8.6,17.4 -21.4,29l-3.6,3.3z" />
+    <path
+        android:fillColor="#0A1F2E"
+        android:pathData="M49.5,60.5l-8,-8l3.4,-3.4l4.6,4.6l12.6,-12.6l3.4,3.4z" />
+</vector>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Barra de estado clara com ícones escuros, igual ao fundo da aplicação -->
+    <style name="Theme.Cuidas" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/fundo</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/fundo</item>
+        <item name="android:windowBackground">@color/fundo</item>
+    </style>
+</resources>
