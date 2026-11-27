@@ -2,8 +2,8 @@
 package pt.ipca.cuidas
 
 import android.content.Intent
-import pt.ipca.cuidas.models.QrLido
 import pt.ipca.cuidas.utils.LeituraQr
+import pt.ipca.cuidas.utils.LeituraQr.QrLido
 
 object DestinoExterno {
 

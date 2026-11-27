@@ -18,10 +18,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pt.ipca.cuidas.ui.boasvindas.BoasVindasView
+import pt.ipca.cuidas.ui.contactos.ContactoFormView
+import pt.ipca.cuidas.ui.contactos.ContactosView
 import pt.ipca.cuidas.ui.definicoes.DefinicoesView
+import pt.ipca.cuidas.ui.historico.DiaHistoricoView
+import pt.ipca.cuidas.ui.historico.HistoricoView
 import pt.ipca.cuidas.ui.home.HomeView
 import pt.ipca.cuidas.ui.medicamentos.MedicamentosView
 import pt.ipca.cuidas.ui.medicamentos.TodosMedicamentosView
@@ -76,6 +81,24 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.TodosMedicamentos.route) {
                         TodosMedicamentosView(navController = navController)
                     }
+                    composable(Screen.Historico.route) {
+                        HistoricoView(navController = navController)
+                    }
+                    composable(Screen.Dia.route) { backStackEntry ->
+                        DiaHistoricoView(
+                            navController = navController,
+                            dia = backStackEntry.arguments?.getString("dia").toLocalDateOrNull() ?: LocalDate.now(),
+                        )
+                    }
+                    composable(Screen.Contactos.route) {
+                        ContactosView(navController = navController)
+                    }
+                    composable(Screen.ContactoForm.route) { backStackEntry ->
+                        ContactoFormView(
+                            navController = navController,
+                            id = backStackEntry.arguments?.getString("id")?.toLongOrNull() ?: 0L,
+                        )
+                    }
                     composable(Screen.Definicoes.route) {
                         DefinicoesView(navController = navController)
                     }
@@ -121,5 +144,11 @@ sealed class Screen(val route: String) {
         fun criar(id: Long, qr: String? = null) = "medicamento/$id" + (qr?.let { "?qr=" + Uri.encode(it) } ?: "")
     }
     object TodosMedicamentos : Screen("medicamentos/todos")
+    object Historico : Screen("historico")
+    object Dia : Screen("historico/{dia}") {
+        fun criar(dia: LocalDate) = "historico/$dia"
+    }
+    object Contactos : Screen("contactos")
+    object ContactoForm : Screen("contacto/{id}")
     object Definicoes : Screen("definicoes")
 }

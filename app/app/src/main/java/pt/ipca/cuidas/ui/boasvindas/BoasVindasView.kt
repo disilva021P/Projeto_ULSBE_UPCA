@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -30,6 +31,10 @@ fun BoasVindasView(
     // ViewModel do ecrã e o seu estado (leitura em voz alta e tamanho da letra escolhidos).
     val viewModel: BoasVindasViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchPreferencias()
+    }
 
     // Marca as boas-vindas como vistas (as escolhas já ficaram guardadas ao tocar) e vai para o início.
     // O popUpTo tira este ecrã da pilha, para o botão "voltar" não regressar aqui.
@@ -60,7 +65,7 @@ fun BoasVindasView(
         // Apresentação curta e aviso de privacidade (sem conta, dados só no telemóvel).
         Text("A CUIDAS ajuda a perceber a sua medicação e diz o que fazer no dia a dia.", style = MaterialTheme.typography.titleLarge)
         Aviso(
-            "Não precisa de criar conta. A sua medicação fica só neste telemóvel.",
+            "Não precisa de criar conta. A sua medicação e os seus contactos ficam só neste telemóvel.",
         )
 
         // Pergunta se quer a leitura automática de cada ecrã (sim/não). Fica null até responder;

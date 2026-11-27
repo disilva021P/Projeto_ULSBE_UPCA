@@ -19,7 +19,7 @@ fun ApagarDados(aoConfirmar: () -> Unit) {
     if (confirmar) {
         DialogoConfirmar(
             titulo = "Apagar todos os dados?",
-            texto = "Apaga a medicação, as fotografias e as tomas guardadas neste telemóvel. Não é possível desfazer.",
+            texto = "Apaga a medicação, as fotografias, as tomas e os contactos guardados neste telemóvel. Não é possível desfazer.",
             confirmar = "Apagar tudo",
             aoCancelar = { confirmar = false },
             aoConfirmar = {

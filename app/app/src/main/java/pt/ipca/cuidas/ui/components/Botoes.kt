@@ -1,4 +1,5 @@
 // Botões grandes e com aspeto claro de botão (RNF01: alvos bem acima dos 48 dp).
+// `altura` é a altura mínima; o botão cresce com a letra escolhida pelo utilizador.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.BorderStroke
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import pt.ipca.cuidas.ui.theme.Cores
 
@@ -35,12 +37,13 @@ fun BotaoPrincipal(
     modifier: Modifier = Modifier,
     icone: ImageVector? = null,
     ativo: Boolean = true,
+    altura: Dp = ALTURA_BOTAO,
     aoCarregar: () -> Unit,
 ) {
     Button(
         onClick = aoCarregar,
         enabled = ativo,
-        modifier = modifier.fillMaxWidth().heightIn(min = ALTURA_BOTAO),
+        modifier = modifier.fillMaxWidth().heightIn(min = altura),
         shape = FORMA,
         contentPadding = MARGENS,
         colors = ButtonDefaults.buttonColors(
@@ -59,16 +62,34 @@ fun BotaoSecundario(
     modifier: Modifier = Modifier,
     icone: ImageVector? = null,
     preencher: Boolean = true,
+    altura: Dp = ALTURA_BOTAO,
     aoCarregar: () -> Unit,
 ) {
     OutlinedButton(
         onClick = aoCarregar,
-        modifier = (if (preencher) modifier.fillMaxWidth() else modifier).heightIn(min = ALTURA_BOTAO),
+        modifier = (if (preencher) modifier.fillMaxWidth() else modifier).heightIn(min = altura),
         shape = FORMA,
         contentPadding = MARGENS,
         border = BorderStroke(2.dp, Cores.Destaque),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Cores.Campo, contentColor = Cores.DestaqueEscuro),
     ) { ConteudoBotao(texto, icone) }
+}
+
+// Botão cinzento para cancelar ou voltar sem guardar, para não se confundir com o botão principal.
+@Composable
+fun BotaoCancelar(
+    texto: String = "Cancelar",
+    modifier: Modifier = Modifier,
+    aoCarregar: () -> Unit,
+) {
+    OutlinedButton(
+        onClick = aoCarregar,
+        modifier = modifier.fillMaxWidth().heightIn(min = ALTURA_BOTAO),
+        shape = FORMA,
+        contentPadding = MARGENS,
+        border = BorderStroke(2.dp, Cores.TextoSuave),
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = Cores.Fundo, contentColor = Cores.Texto),
+    ) { ConteudoBotao(texto, Icones.Voltar) }
 }
 
 // Botão vermelho para ações perigosas (apagar).
@@ -77,11 +98,12 @@ fun BotaoPerigo(
     texto: String,
     modifier: Modifier = Modifier,
     icone: ImageVector? = null,
+    altura: Dp = ALTURA_BOTAO,
     aoCarregar: () -> Unit,
 ) {
     Button(
         onClick = aoCarregar,
-        modifier = modifier.fillMaxWidth().heightIn(min = ALTURA_BOTAO),
+        modifier = modifier.fillMaxWidth().heightIn(min = altura),
         shape = FORMA,
         contentPadding = MARGENS,
         colors = ButtonDefaults.buttonColors(containerColor = Cores.Perigo, contentColor = Color.White),

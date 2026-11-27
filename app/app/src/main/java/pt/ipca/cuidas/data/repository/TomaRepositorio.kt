@@ -34,4 +34,16 @@ class TomaRepositorio(private val bd: CuidasBd, private val medicamentos: Medica
     fun desfazer(horarioId: Long, dia: LocalDate = LocalDate.now()) {
         bd.writableDatabase.delete("toma", "horario_id = ? AND dia = ?", arrayOf(horarioId.toString(), dia.toString()))
     }
+
+    // Horários confirmados em cada dia de um intervalo.
+    fun confirmadasEntre(inicio: LocalDate, fim: LocalDate): Map<LocalDate, Set<Long>> {
+        val mapa = mutableMapOf<LocalDate, MutableSet<Long>>()
+        bd.readableDatabase.rawQuery(
+            "SELECT dia, horario_id FROM toma WHERE dia BETWEEN ? AND ?",
+            arrayOf(inicio.toString(), fim.toString()),
+        ).use { c ->
+            while (c.moveToNext()) mapa.getOrPut(LocalDate.parse(c.getString(0))) { mutableSetOf() } += c.getLong(1)
+        }
+        return mapa
+    }
 }

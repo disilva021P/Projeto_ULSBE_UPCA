@@ -27,7 +27,9 @@ fun DefinicoesView(
     val viewModel: DefinicoesViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(Unit) { viewModel.verificarNotificacoes() }
+    LaunchedEffect(Unit) {
+        viewModel.fetchDefinicoes()
+    }
 
     Ecra(
         titulo = "Definições",
@@ -47,8 +49,8 @@ fun DefinicoesView(
 
         TituloSecao("Privacidade")
         Aviso(
-            "Não tem conta e a aplicação não recolhe dados pessoais nem de saúde. A medicação, as fotografias " +
-                "e as tomas ficam só neste telemóvel.",
+            "Não tem conta e a aplicação não recolhe dados pessoais nem de saúde. A medicação, as fotografias, " +
+                "as tomas e os contactos ficam só neste telemóvel.",
         )
         ApagarDados {
             viewModel.apagarTudo {

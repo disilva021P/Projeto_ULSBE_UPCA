@@ -20,12 +20,13 @@ class CuidasBd(context: Context) : SQLiteOpenHelper(context, NOME, null, VERSAO)
         if (oldVersion < newVersion) Migracoes.paraVersao(newVersion, db)
     }
 
-    // RF03. Apaga a medicação, os horários e as tomas guardados no telemóvel.
+    // RF03. Os números oficiais (SNS 24 e 112) ficam, porque não são pessoais.
     fun apagarDadosDoUtilizador() {
         writableDatabase.transacao {
             delete("toma", null, null)
             delete("horario", null, null)
             delete("medicamento", null, null)
+            delete("contacto", "chave IS NULL", null)
         }
     }
 

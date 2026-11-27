@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import pt.ipca.cuidas.ui.theme.Cores
 
-// Campo de texto com fundo branco e letra grande.
+// Campo de texto com fundo branco e letra grande; `inicio` mostra algo antes do texto (ex.: o indicativo do país).
 @Composable
 fun CampoTexto(
     valor: String,
@@ -23,11 +23,13 @@ fun CampoTexto(
     erro: String? = null,
     oculto: Boolean = false,
     linhas: Int = 1,
+    inicio: (@Composable () -> Unit)? = null,
 ) {
     OutlinedTextField(
         value = valor,
         onValueChange = aoMudar,
         label = { Text(rotulo) },
+        leadingIcon = inicio,
         textStyle = MaterialTheme.typography.bodyLarge,
         singleLine = linhas == 1,
         minLines = linhas,

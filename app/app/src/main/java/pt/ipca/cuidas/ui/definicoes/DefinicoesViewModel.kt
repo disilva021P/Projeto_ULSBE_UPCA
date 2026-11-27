@@ -23,14 +23,13 @@ class DefinicoesViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(DefinicoesViewState())
     val uiState: StateFlow<DefinicoesViewState> = _uiState.asStateFlow()
 
-    init {
+    // Lê as escolhas guardadas e o estado das notificações.
+    fun fetchDefinicoes() {
         verificarNotificacoes()
-        viewModelScope.launch {
-            Contentor.preferencias.escala.collect { _uiState.value = _uiState.value.copy(escala = it) }
-        }
-        viewModelScope.launch {
-            Contentor.preferencias.leituraAutomatica.collect { _uiState.value = _uiState.value.copy(leituraAutomatica = it) }
-        }
+        _uiState.value = _uiState.value.copy(
+            escala = Contentor.preferencias.escala.value,
+            leituraAutomatica = Contentor.preferencias.leituraAutomatica.value,
+        )
     }
 
     // O utilizador pode desligar as notificações a qualquer momento nas definições do Android.
@@ -40,12 +39,18 @@ class DefinicoesViewModel : ViewModel() {
         )
     }
 
-    // Guardam as escolhas nas preferências; o estado atualiza-se pelo collect do init.
-    fun definirEscala(escala: Float) = Contentor.preferencias.definirEscala(escala)
+    // Guardam as escolhas nas preferências e mostram-nas logo no ecrã.
+    fun definirEscala(escala: Float) {
+        Contentor.preferencias.definirEscala(escala)
+        _uiState.value = _uiState.value.copy(escala = escala)
+    }
 
-    fun definirLeituraAutomatica(ligada: Boolean) = Contentor.preferencias.definirLeituraAutomatica(ligada)
+    fun definirLeituraAutomatica(ligada: Boolean) {
+        Contentor.preferencias.definirLeituraAutomatica(ligada)
+        _uiState.value = _uiState.value.copy(leituraAutomatica = ligada)
+    }
 
-    // RF03: apaga a medicação, as fotografias e as tomas.
+    // RF03: apaga a medicação, as fotografias, as tomas e os contactos pessoais.
     fun apagarTudo(onSuccess: () -> Unit) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {

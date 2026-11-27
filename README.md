@@ -37,13 +37,13 @@ A CUIDAS ajuda o utilizador a perceber a sua medicação e **confirma essa compr
 |---|---|---|
 | `app/` | Aplicação Android do utente e do cuidador | Kotlin, Jetpack Compose, SQLite |
 
-* O utente não tem conta. Medicação, fotografias e tomas ficam só no SQLite do telemóvel.
+* O utente não tem conta. Medicação, fotografias, tomas e contactos ficam só no SQLite do telemóvel.
 
 ## Identidade visual
 
 * Fundo e superfícies `#EDEDED`, destaque e ações `#00A0EA`.
 * Texto escuro sobre o azul.
-* O vermelho só aparece nos botões de apagar.
+* O vermelho só aparece no 112 e nos botões de apagar.
 
 ## Arrancar a app Android
 
@@ -61,6 +61,9 @@ A CUIDAS ajuda o utilizador a perceber a sua medicação e **confirma essa compr
 | Todos os medicamentos: em curso e terminados, com o botão "Adicionar medicamento" | RF05 |
 | Adicionar medicamento: leitura do QR da receita ou escrita à mão, para que serve, horas, data de término, fotografia | RF06, RF19 |
 | Lembretes: notificação com som, vibração e luz, botão "Já tomei", param depois da data de término | RF10, RF11 |
+| Início: registo dos últimos 7 dias (completo, incompleto ou sem tomas) | RF11 |
+| Histórico: "X de Y dias completos" nos últimos 30 dias; cada dia abre a lista dos medicamentos tomados e a hora | RF11 |
+| Contactos importantes: médico, farmácia, familiares e serviços de saúde, com chamada direta; o número leva a bandeira e o indicativo do país (🇵🇹 +351 por omissão) | RF15 |
 | Definições: letra, leitura automática, notificações dos lembretes e apagar todos os dados | RF03, RF18 |
 
 A leitura automática vem desligada. A app pergunta na primeira utilização e a escolha pode ser mudada nas Definições. O botão "Ouvir" está sempre no topo de cada ecrã.
@@ -84,15 +87,15 @@ app/app/src/main/java/pt/ipca/cuidas/
   CuidasApp.kt      Application: inicia o Contentor uma vez ao arrancar
   Contentor.kt      object com os repositórios partilhados; os ViewModels usam Contentor.xxx
   Helpers.kt        funções de extensão (datas em pt-PT, leitura de JSON)
-  models/           data classes (Medicamento, Horario, TomaDoDia, QrLido, ...)
+  models/           data classes (Medicamento, Contacto, RegistoDia, ...)
   data/local/       SQLite (CuidasBd, Esquema, Migracoes) e preferências
-  data/repository/  repositórios usados pelos ViewModels (medicamentos e tomas)
+  data/repository/  repositórios usados pelos ViewModels (medicamentos, tomas, registo dos dias, contactos)
   lembretes/        alarmes e notificações das tomas
-  utils/            fotos, voz e leitura de QR
+  utils/            fotos, chamadas, voz e leitura de QR
   ui/theme/         Color.kt, Type.kt, Theme.kt (CuidasTheme)
   ui/components/    componentes reutilizáveis (MyTopBar, Ecra, Botoes, Cartao, Aviso, Texto, ...)
   ui/<ecrã>/        cada ecrã com XxxView.kt (Compose) e XxxViewModel.kt (XxxViewState + StateFlow):
-                    boasvindas, home, medicamentos (+ form), definicoes
+                    boasvindas, home, medicamentos (+ form), historico, contactos, definicoes
 ```
 
 ## Base de dados local (SQLite, versão 1)
@@ -102,6 +105,7 @@ app/app/src/main/java/pt/ipca/cuidas/
 | `medicamento` | nome, quantidade por toma, para que serve, fotografia, data de início, data de término |
 | `horario` | horas de cada medicamento |
 | `toma` | tomas confirmadas (uma por horário e por dia) |
+| `contacto` | contactos importantes; o SNS 24 e o 112 têm chave fixa e não se podem apagar |
 
 ## Pontos a confirmar com a ULSBE
 

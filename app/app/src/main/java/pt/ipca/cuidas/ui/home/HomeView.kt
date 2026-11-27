@@ -13,8 +13,9 @@ import pt.ipca.cuidas.ui.components.BotaoSecundario
 import pt.ipca.cuidas.ui.components.Ecra
 import pt.ipca.cuidas.ui.components.Icones
 import pt.ipca.cuidas.ui.components.TituloSecao
+import pt.ipca.cuidas.ui.historico.TrackerSemana
 
-// Ecrã inicial: próxima toma e as secções em blocos quadrados iguais.
+// Ecrã inicial: registo dos últimos sete dias, próxima toma e as secções em blocos quadrados iguais.
 @Composable
 fun HomeView(
     modifier: Modifier = Modifier,
@@ -31,6 +32,7 @@ fun HomeView(
 
     val falar = buildString {
         append("Olá. ")
+        uiState.semana.lastOrNull()?.takeIf { it.previstas > 0 }?.let { append("Hoje fez ${it.confirmadas} de ${it.previstas} tomas. ") }
         uiState.proximaToma?.let { append("A próxima toma é ${it.medicamento.nome}, às ${it.horario.texto()}. ") }
         append("Escolha: ")
         append(blocos.joinToString(", ") { it.texto })
@@ -44,6 +46,9 @@ fun HomeView(
         navController = navController,
         isBaseScreen = true,
     ) {
+        if (uiState.semana.isNotEmpty()) {
+            TrackerSemana(uiState.semana) { navController.navigate(Screen.Historico.route) }
+        }
         uiState.proximaToma?.let { toma ->
             CartaoProximaToma(toma) { viewModel.confirmarToma(toma) }
         }

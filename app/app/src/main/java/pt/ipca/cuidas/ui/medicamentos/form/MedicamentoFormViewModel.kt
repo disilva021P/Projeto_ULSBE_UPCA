@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 import pt.ipca.cuidas.Contentor
 import pt.ipca.cuidas.models.Horario
 import pt.ipca.cuidas.models.Medicamento
-import pt.ipca.cuidas.models.QrLido
+import pt.ipca.cuidas.utils.LeituraQr.QrLido
 import pt.ipca.cuidas.utils.Fotos
 import pt.ipca.cuidas.utils.LeituraQr
 

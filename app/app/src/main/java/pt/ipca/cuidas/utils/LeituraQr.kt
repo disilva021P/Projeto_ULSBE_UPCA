@@ -6,7 +6,6 @@ import org.json.JSONObject
 import pt.ipca.cuidas.models.Horario
 import pt.ipca.cuidas.models.Medicamento
 import pt.ipca.cuidas.models.ParaQueServe
-import pt.ipca.cuidas.models.QrLido
 import pt.ipca.cuidas.objetos
 import pt.ipca.cuidas.toLocalDateOrNull
 import java.time.LocalDate
@@ -16,6 +15,13 @@ import java.util.zip.GZIPInputStream
 // Aceita três formatos de receita: a receita eletrónica do SNS (Base64 + gzip), a ligação curta
 // cuidas://receita gerada pelo backoffice e o JSON. Só este ficheiro precisa de mudar se o formato mudar.
 object LeituraQr {
+
+    // Resultado da leitura de um código QR ou de uma ligação cuidas:// (só usado com a LeituraQr).
+    sealed class QrLido {
+        class Receita(val medicamentos: List<Medicamento>) : QrLido()
+        object Abrir : QrLido()
+        object Desconhecido : QrLido()
+    }
 
     // Identifica o tipo de QR (ligação cuidas://, JSON ou receita do SNS) e lê-o.
     fun ler(texto: String?): QrLido {

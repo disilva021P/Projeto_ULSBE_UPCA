@@ -6,7 +6,9 @@ package pt.ipca.cuidas
 import android.app.Application
 import pt.ipca.cuidas.data.local.CuidasBd
 import pt.ipca.cuidas.data.local.Preferencias
+import pt.ipca.cuidas.data.repository.ContactoRepositorio
 import pt.ipca.cuidas.data.repository.MedicamentoRepositorio
+import pt.ipca.cuidas.data.repository.RegistoDiasRepositorio
 import pt.ipca.cuidas.data.repository.TomaRepositorio
 import pt.ipca.cuidas.lembretes.AgendadorLembretes
 import pt.ipca.cuidas.utils.Voz
@@ -23,7 +25,7 @@ object Contentor {
     // Definições do utilizador guardadas no telemóvel (tamanho da letra, leitura em voz alta, boas vindas feitas, ...).
     val preferencias by lazy { Preferencias(app) }
 
-    // Base de dados SQLite da app (tabelas medicamento, horario e toma).
+    // Base de dados SQLite da app (tabelas medicamento, horario, toma e contacto).
     val bd by lazy { CuidasBd(app) }
 
     // Acesso aos medicamentos e aos seus horários na base de dados (listar, guardar, apagar).
@@ -31,6 +33,12 @@ object Contentor {
 
     // Registo das tomas (tomada, falhada, ...); usa os medicamentos para saber o que estava previsto.
     val tomas by lazy { TomaRepositorio(bd, medicamentos) }
+
+    // Resumo de cada dia (tomas feitas e previstas) para o histórico e o início.
+    val registoDias by lazy { RegistoDiasRepositorio(medicamentos, tomas) }
+
+    // Contactos importantes guardados no telemóvel (SNS 24, 112, médico, farmácia, ...).
+    val contactos by lazy { ContactoRepositorio(bd) }
 
     // Leitura em voz alta dos textos dos ecrãs (botão "Ouvir").
     val voz by lazy { Voz(app) }
