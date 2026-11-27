@@ -1,4 +1,3 @@
-// Texto da aplicação, com o estilo e a cor por omissão do tema.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.material3.MaterialTheme
@@ -10,6 +9,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Texto da aplicação, com o estilo e a cor por omissão do tema.
 @Composable
 fun Texto(
     texto: String,

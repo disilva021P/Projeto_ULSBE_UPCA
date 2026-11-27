@@ -2,17 +2,14 @@
 package pt.ipca.cuidas
 
 import android.app.Application
-import android.content.Context
+import pt.ipca.cuidas.lembretes.Notificacoes
 
 class CuidasApp : Application() {
 
-    lateinit var contentor: Contentor
-        private set
-
+    // Inicia o Contentor e cria o canal das notificações quando a app arranca.
     override fun onCreate() {
         super.onCreate()
-        contentor = Contentor(this)
+        Contentor.iniciar(this)
+        Notificacoes.criarCanal(this)
     }
 }
-
-fun Context.contentor(): Contentor = (applicationContext as CuidasApp).contentor

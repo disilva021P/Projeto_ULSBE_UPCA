@@ -11,6 +11,7 @@ class Voz(context: Context) : TextToSpeech.OnInitListener {
     private var pronta = false
     private var pendente: String? = null
 
+    // O motor de voz ficou pronto: escolhe o português de Portugal e uma velocidade mais lenta.
     override fun onInit(status: Int) {
         if (status != TextToSpeech.SUCCESS) return
         val resultado = tts.setLanguage(Locale("pt", "PT"))
@@ -24,6 +25,7 @@ class Voz(context: Context) : TextToSpeech.OnInitListener {
         pendente = null
     }
 
+    // Lê o texto em voz alta; se o motor ainda não estiver pronto, lê quando estiver.
     fun falar(texto: String) {
         if (texto.isBlank()) return
         if (!pronta) {
@@ -33,6 +35,7 @@ class Voz(context: Context) : TextToSpeech.OnInitListener {
         tts.speak(texto, TextToSpeech.QUEUE_FLUSH, null, "cuidas")
     }
 
+    // Para a leitura.
     fun parar() {
         pendente = null
         if (pronta) tts.stop()

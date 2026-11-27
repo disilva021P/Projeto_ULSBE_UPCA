@@ -1,4 +1,3 @@
-// Pergunta da primeira utilização: ler os ecrãs em voz alta ou não.
 package pt.ipca.cuidas.ui.boasvindas
 
 import androidx.compose.material3.MaterialTheme
@@ -8,6 +7,7 @@ import pt.ipca.cuidas.ui.components.BotaoEscolha
 import pt.ipca.cuidas.ui.components.TituloSecao
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Pergunta da primeira utilização: ler os ecrãs em voz alta ou não.
 @Composable
 fun EscolhaLeitura(escolha: Boolean?, aoEscolher: (Boolean) -> Unit) {
     TituloSecao("Quer que a aplicação leia cada ecrã em voz alta?")

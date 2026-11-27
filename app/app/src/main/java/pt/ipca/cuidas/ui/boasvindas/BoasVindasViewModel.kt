@@ -1,45 +1,45 @@
 package pt.ipca.cuidas.ui.boasvindas
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import pt.ipca.cuidas.contentor
+import pt.ipca.cuidas.Contentor
 
 data class BoasVindasViewState(
     val leitura: Boolean? = null,
     val escala: Float = 1f,
 )
 
-class BoasVindasViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val c = application.contentor()
+class BoasVindasViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(BoasVindasViewState())
     val uiState: StateFlow<BoasVindasViewState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            c.preferencias.escala.collect { escala ->
+            Contentor.preferencias.escala.collect { escala ->
                 _uiState.value = _uiState.value.copy(escala = escala)
             }
         }
     }
 
+    // Guarda a escolha da leitura em voz alta e confirma-a em voz.
     fun escolherLeitura(ligada: Boolean) {
         _uiState.value = _uiState.value.copy(leitura = ligada)
-        c.preferencias.definirLeituraAutomatica(ligada)
-        if (ligada) c.voz.falar("A leitura em voz alta está ligada.") else c.voz.parar()
+        Contentor.preferencias.definirLeituraAutomatica(ligada)
+        if (ligada) Contentor.voz.falar("A leitura em voz alta está ligada.") else Contentor.voz.parar()
     }
 
+    // Guarda o tamanho da letra (aplica-se logo à app toda).
     fun escolherEscala(escala: Float) {
-        c.preferencias.definirEscala(escala)
+        Contentor.preferencias.definirEscala(escala)
     }
 
+    // Marca as boas-vindas como vistas, para não voltarem a aparecer.
     fun concluir() {
-        c.preferencias.boasVindasConcluidas = true
+        Contentor.preferencias.boasVindasConcluidas = true
     }
 }

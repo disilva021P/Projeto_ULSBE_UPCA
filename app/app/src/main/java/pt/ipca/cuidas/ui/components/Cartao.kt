@@ -1,4 +1,3 @@
-// Cartão com contorno, para agrupar informação relacionada.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.background
@@ -15,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Cartão com contorno, para agrupar informação relacionada.
 @Composable
 fun Cartao(
     modifier: Modifier = Modifier,

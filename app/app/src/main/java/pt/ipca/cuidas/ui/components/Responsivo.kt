@@ -1,4 +1,3 @@
-// Grelhas que mudam o número de colunas conforme a largura e o tamanho da letra, para nada ficar cortado.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +23,7 @@ fun colunasPara(larguraDisponivel: Dp, larguraMinima: Dp, maximo: Int, espaco: D
     return ((larguraDisponivel + espaco) / (minima + espaco)).toInt().coerceIn(1, maximo)
 }
 
+// Grelhas que mudam o número de colunas conforme a largura e o tamanho da letra, para nada ficar cortado.
 @Composable
 fun GrelhaResponsiva(
     quantidade: Int,

@@ -21,6 +21,7 @@ import pt.ipca.cuidas.ui.theme.Cores
 
 enum class TipoAviso { INFO, SUCESSO, ATENCAO, PERIGO }
 
+// Caixa de aviso com ícone e cor conforme o tipo (informação, sucesso, atenção ou perigo).
 @Composable
 fun Aviso(texto: String, modifier: Modifier = Modifier, perigo: Boolean = false, tipo: TipoAviso = if (perigo) TipoAviso.PERIGO else TipoAviso.INFO) {
     val forma = RoundedCornerShape(12.dp)
@@ -44,6 +45,7 @@ fun Aviso(texto: String, modifier: Modifier = Modifier, perigo: Boolean = false,
     }
 }
 
+// Lembrete de que a app não substitui um profissional de saúde.
 @Composable
 fun AvisoNaoSubstitui() {
     Texto(

@@ -1,4 +1,3 @@
-// Grelha uniforme dos blocos: duas colunas de quadrados, ou uma coluna de blocos largos se a letra não couber.
 package pt.ipca.cuidas.ui.home
 
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -10,6 +9,7 @@ import pt.ipca.cuidas.ui.components.BlocoQuadrado
 import pt.ipca.cuidas.ui.components.GrelhaResponsiva
 import pt.ipca.cuidas.ui.components.colunasPara
 
+// Grelha uniforme dos blocos: duas colunas de quadrados, ou uma coluna de blocos largos se a letra não couber.
 @Composable
 fun GrelhaBlocos(blocos: List<BlocoHome>, contadores: Map<String, Int>, aoEscolher: (BlocoHome) -> Unit) {
     BoxWithConstraints(Modifier.fillMaxWidth()) {

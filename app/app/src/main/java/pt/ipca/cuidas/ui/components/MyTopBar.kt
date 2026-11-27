@@ -1,4 +1,3 @@
-// Barra de topo comum: voltar (fora dos ecrãs base), título numa linha e ações, com a linha azul por baixo.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.layout.Column
@@ -22,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import pt.ipca.cuidas.ui.theme.Cores
 import pt.ipca.cuidas.ui.theme.CuidasTheme
 
+// Barra de topo comum: voltar (fora dos ecrãs base), título numa linha e ações, com a linha azul por baixo.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopBar(

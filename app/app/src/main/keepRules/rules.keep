@@ -1,5 +1,0 @@
-# Regras de R8 do projeto.
-# O AGP junta todos os ficheiros de src/main/keepRules e passa-os ao R8.
-# Mais informação: https://d.android.com/r/tools/r8/keep-rules
-#
-# Sem regras extra: a aplicação não usa reflexão e o leitor de QR (ZXing) já traz as suas.

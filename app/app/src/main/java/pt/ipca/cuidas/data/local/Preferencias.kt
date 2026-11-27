@@ -2,7 +2,6 @@
 package pt.ipca.cuidas.data.local
 
 import android.content.Context
-import java.util.UUID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,9 +17,7 @@ class Preferencias(context: Context) {
     private val _leituraAutomatica = MutableStateFlow(prefs.getBoolean(LEITURA, false))
     val leituraAutomatica: StateFlow<Boolean> = _leituraAutomatica.asStateFlow()
 
-    private val _cuidadorAutorizado = MutableStateFlow(prefs.getBoolean(CUIDADOR, false))
-    val cuidadorAutorizado: StateFlow<Boolean> = _cuidadorAutorizado.asStateFlow()
-
+    // Guardam a escolha e atualizam o StateFlow, para os ecrãs mudarem logo.
     fun definirEscala(escala: Float) {
         prefs.edit().putFloat(ESCALA, escala).apply()
         _escala.value = escala
@@ -31,54 +28,26 @@ class Preferencias(context: Context) {
         _leituraAutomatica.value = ligada
     }
 
-    fun definirCuidadorAutorizado(autorizado: Boolean) {
-        prefs.edit().putBoolean(CUIDADOR, autorizado).apply()
-        _cuidadorAutorizado.value = autorizado
-    }
-
     var boasVindasConcluidas: Boolean
         get() = prefs.getBoolean(BOAS_VINDAS, false)
         set(v) = prefs.edit().putBoolean(BOAS_VINDAS, v).apply()
-
-    // RF02. Aleatório e sem ligação a nenhuma pessoa: só serve para contar instalações.
-    val identificador: String
-        get() = prefs.getString(IDENTIFICADOR, null) ?: UUID.randomUUID().toString().also {
-            prefs.edit().putString(IDENTIFICADOR, it).apply()
-        }
-
-    var instalacaoRegistada: Boolean
-        get() = prefs.getBoolean(INSTALACAO, false)
-        set(v) = prefs.edit().putBoolean(INSTALACAO, v).apply()
-
-    var ultimaSincronizacao: Long
-        get() = prefs.getLong(SINCRONIZACAO, 0L)
-        set(v) = prefs.edit().putLong(SINCRONIZACAO, v).apply()
-
-    var satisfacaoEnviada: Boolean
-        get() = prefs.getBoolean(SATISFACAO, false)
-        set(v) = prefs.edit().putBoolean(SATISFACAO, v).apply()
 
     var lembretesAgendados: Set<String>
         get() = prefs.getStringSet(LEMBRETES, emptySet()) ?: emptySet()
         set(v) = prefs.edit().putStringSet(LEMBRETES, v).apply()
 
+    // Apaga todas as preferências e volta aos valores iniciais.
     fun apagarTudo() {
         prefs.edit().clear().apply()
         _escala.value = ESCALA_PADRAO
         _leituraAutomatica.value = false
-        _cuidadorAutorizado.value = false
     }
 
     private companion object {
         const val ESCALA_PADRAO = 1.15f
         const val ESCALA = "escala"
         const val LEITURA = "leitura_automatica"
-        const val CUIDADOR = "cuidador_autorizado"
         const val BOAS_VINDAS = "boas_vindas"
-        const val IDENTIFICADOR = "identificador"
-        const val INSTALACAO = "instalacao_registada"
-        const val SINCRONIZACAO = "ultima_sincronizacao"
-        const val SATISFACAO = "satisfacao_enviada"
         const val LEMBRETES = "lembretes_agendados"
     }
 }

@@ -1,4 +1,3 @@
-// Estrutura comum dos ecrãs: barra de topo com voltar e ouvir, e conteúdo com scroll.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.clickable
@@ -26,14 +25,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import pt.ipca.cuidas.contentor
+import pt.ipca.cuidas.Contentor
 import pt.ipca.cuidas.ui.theme.Cores
 
 // Ícone com a palavra por baixo, em tamanho fixo, para caber na barra mesmo com letra muito grande.
@@ -54,6 +52,7 @@ private fun BotaoOuvir(aoCarregar: () -> Unit) {
     }
 }
 
+// Estrutura comum dos ecrãs: barra de topo com voltar e ouvir, e conteúdo com scroll.
 @Composable
 fun Ecra(
     titulo: String,
@@ -63,7 +62,7 @@ fun Ecra(
     isBaseScreen: Boolean = false,
     conteudo: @Composable ColumnScope.() -> Unit,
 ) {
-    val c = LocalContext.current.contentor()
+    val c = Contentor
     val leituraAutomatica by c.preferencias.leituraAutomatica.collectAsState()
     LaunchedEffect(textoParaOuvir) {
         if (leituraAutomatica) c.voz.falar(textoParaOuvir)

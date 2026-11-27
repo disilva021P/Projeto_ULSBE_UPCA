@@ -27,14 +27,9 @@ fun LocalDate.toDateWithWeekday(): String {
     return "$semana, ${toShortDate()}"
 }
 
-// Milissegundos guardados no SQLite -> dia e hora locais
-fun Long.toLocalDate(): LocalDate = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDate()
-
+// Milissegundos guardados no SQLite -> hora local
 fun Long.toShortTime(): String = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).format(HORA)
 
 // Campos em falta não fazem falhar a aplicação.
 fun JSONArray?.objetos(): List<JSONObject> =
     if (this == null) emptyList() else (0 until length()).mapNotNull { optJSONObject(it) }
-
-fun JSONObject.textoOuNulo(campo: String): String? =
-    if (isNull(campo)) null else optString(campo, "").ifBlank { null }

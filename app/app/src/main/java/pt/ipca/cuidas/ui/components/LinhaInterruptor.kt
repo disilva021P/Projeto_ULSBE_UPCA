@@ -1,4 +1,3 @@
-// Opção de ligar ou desligar, com o texto à esquerda.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.layout.Row
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Opção de ligar ou desligar, com o texto à esquerda.
 @Composable
 fun LinhaInterruptor(texto: String, ligado: Boolean, aoMudar: (Boolean) -> Unit) {
     Cartao {

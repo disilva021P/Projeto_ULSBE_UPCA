@@ -1,4 +1,3 @@
-// Tema Material da aplicação com a escala de letra escolhida pelo utilizador.
 package pt.ipca.cuidas.ui.theme
 
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +28,7 @@ private val esquema = lightColorScheme(
     error = Cores.Perigo,
 )
 
+// Tema Material da aplicação com a escala de letra escolhida pelo utilizador.
 @Composable
 fun CuidasTheme(escala: Float = 1f, conteudo: @Composable () -> Unit) {
     val densidade = LocalDensity.current

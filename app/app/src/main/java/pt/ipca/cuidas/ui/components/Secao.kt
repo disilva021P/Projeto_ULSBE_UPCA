@@ -12,6 +12,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Título de uma secção dentro de um ecrã.
 @Composable
 fun TituloSecao(texto: String, modifier: Modifier = Modifier) {
     Text(
@@ -22,6 +23,7 @@ fun TituloSecao(texto: String, modifier: Modifier = Modifier) {
     )
 }
 
+// Linha horizontal para separar blocos.
 @Composable
 fun Divisoria() {
     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 2.dp, color = Cores.Linha)

@@ -1,4 +1,3 @@
-// Bloco do ecrã inicial: quadrado na grelha de duas colunas, ou largo numa coluna quando a letra é grande.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.background
@@ -32,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Bloco do ecrã inicial: quadrado na grelha de duas colunas, ou largo numa coluna quando a letra é grande.
 @Composable
 fun BlocoQuadrado(
     texto: String,

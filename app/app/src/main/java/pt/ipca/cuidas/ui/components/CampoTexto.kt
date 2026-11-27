@@ -1,4 +1,3 @@
-// Campo de texto com fundo branco e letra grande.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +13,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Campo de texto com fundo branco e letra grande.
 @Composable
 fun CampoTexto(
     valor: String,

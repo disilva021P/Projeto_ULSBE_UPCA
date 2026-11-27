@@ -28,6 +28,7 @@ val ALTURA_BOTAO = 60.dp
 private val FORMA = RoundedCornerShape(12.dp)
 private val MARGENS = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
 
+// Botão principal do ecrã, grande e cheio.
 @Composable
 fun BotaoPrincipal(
     texto: String,
@@ -51,6 +52,7 @@ fun BotaoPrincipal(
     ) { ConteudoBotao(texto, icone) }
 }
 
+// Botão com contorno, para ações secundárias.
 @Composable
 fun BotaoSecundario(
     texto: String,
@@ -69,6 +71,7 @@ fun BotaoSecundario(
     ) { ConteudoBotao(texto, icone) }
 }
 
+// Botão vermelho para ações perigosas (apagar).
 @Composable
 fun BotaoPerigo(
     texto: String,
@@ -85,6 +88,7 @@ fun BotaoPerigo(
     ) { ConteudoBotao(texto, icone) }
 }
 
+// Botão que fica destacado quando está escolhido (sim/não, opções).
 @Composable
 fun BotaoEscolha(texto: String, escolhido: Boolean, modifier: Modifier = Modifier, aoCarregar: () -> Unit) {
     if (escolhido) {

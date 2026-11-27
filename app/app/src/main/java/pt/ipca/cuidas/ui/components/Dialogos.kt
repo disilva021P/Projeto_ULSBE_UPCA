@@ -1,4 +1,3 @@
-// Diálogo de confirmação com botões grandes, usado antes de apagar dados.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.layout.heightIn
@@ -11,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pt.ipca.cuidas.ui.theme.Cores
 
+// Diálogo de confirmação com botões grandes, usado antes de apagar dados.
 @Composable
 fun DialogoConfirmar(
     titulo: String,

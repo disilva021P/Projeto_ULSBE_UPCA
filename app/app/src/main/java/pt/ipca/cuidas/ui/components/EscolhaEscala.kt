@@ -1,4 +1,3 @@
-// Escolha do tamanho da letra em três botões.
 package pt.ipca.cuidas.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -7,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import kotlin.math.abs
 
+// Escolha do tamanho da letra em três botões.
 @Composable
 fun EscolhaEscala(atual: Float, aoEscolher: (Float) -> Unit) {
     val opcoes = listOf(1.0f to "Normal", 1.15f to "Grande", 1.35f to "Muito grande")
